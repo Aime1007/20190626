@@ -9,36 +9,19 @@ public:
         num = a;
         name = b;
     }
-    void show()
-    {
-        cout << num <<" "<<name<<endl;
-    }
     friend void sort(double *p,student *q,string *r,int *z);
 private:
     string name;
     int num;
-    
 };
 
 class judge{
 public:
-    judge(){
-    }
+    judge(){}
     void set(string a,int *p){
         name = a;
         for(int i=0; i<4; i++)
             score[i]=*(p+i);
-    }
-    void show()
-    {
-        cout << name <<" ";
-        for(int i=0; i<4; i++){
-            cout << score[i];
-            if( i==3 )
-                cout <<endl;
-            else
-                cout <<" ";
-        }
     }
     string get1(){
         return name;
@@ -54,6 +37,7 @@ private:
 
 void average(judge *jud,double *avg1);
 void sort(double *p,student *q,string *r);
+
 int main() {
     student stu[4]; //对象数组 学生
     judge jud[7]; //对象数组 裁判
@@ -99,14 +83,6 @@ int main() {
     if (ljlout.is_open())
     {
         cout<<"file OK"<<endl;
-        for(int i=0; i<4; i++)
-        {
-            stu[i].show();
-        }
-        for(int i=0; i<7; i++)
-        {
-            jud[i].show();
-        }
         average(jud,avg1);
         sort(avg1,stu,nam,num);
         for(int i=0; i<4; i++ ){
@@ -119,10 +95,8 @@ int main() {
         
         ljlout.close();
     }
-    
     return 0;
 }
-
 void average(judge *jud,double *avg1){
     int scor[4][7];
     //double avg[4];
@@ -130,14 +104,6 @@ void average(judge *jud,double *avg1){
     for(int i=0; i<4; i++ )
         for(int j=0; j<7; j++ ){
             scor[i][j] = (*(jud+j)).score[i];
-        }
-    for(int i=0; i<4; i++ )
-        for(int j=0; j<7; j++ ) {
-            cout << scor[i][j];
-            if( j==6 )
-                cout <<endl;
-            else
-                cout <<" ";
         }
     int max,min;
     int sign_max,sign_min;
@@ -154,17 +120,13 @@ void average(judge *jud,double *avg1){
             }
         }
         scor[i][sign_max]=0; scor[i][sign_min] =0;
-        cout << min <<" "<< max<<endl;
     }
     for(int i=0; i<4; i++ ){
         for(int j=0; j<7; j++ ){
             sum[i] += scor[i][j];
-            //cout << sum[i] <<" "<<endl;
         }
         *(avg1+i) = 1.0*sum[i]/5;
-        cout << *(avg1+i) <<endl;
     }
-    
 }
 void sort(double *p,student *q,string *r,int *z){
     for(int i=0; i<3; i++)
