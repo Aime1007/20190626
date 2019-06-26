@@ -106,7 +106,7 @@ void average(judge *jud,double *avg1){
             scor[i][j] = (*(jud+j)).score[i];
         }
     int max,min;
-    int sign_max,sign_min;
+    int sign_max=0,sign_min=0;
     for(int i=0; i<4; i++ ){
         max=0,min=1000;
         for(int j=0; j<7; j++ ){
