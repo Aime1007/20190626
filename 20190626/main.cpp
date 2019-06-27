@@ -37,76 +37,12 @@ private:
     int score[4];
 };
 
-void average(judge *jud,double *avg1);
-void sort(double *p,int *z);
-
-int main() {
-    student stu[4]; //对象数组 学生
-    judge jud[7]; //对象数组 裁判
-    double avg1[4]; //平均成绩
-    string nam[4]; //学生名
-    int num[4]={0,1,2,3};
-    ifstream stuin("/Users/s20181106275/Desktop/project0626/20190626/190626in01.txt");
-    ifstream judgein("/Users/s20181106275/Desktop/project0626/20190626/190626in02.txt");
-    ofstream ljlout("/Users/s20181106275/Desktop/project0626/20190626/190626out.txt");
-    
-    if(stuin.is_open()) //文件读取学生学号姓名
-    {
-        cout<<"file OK"<<endl;
-        for(int i=0; i<4; i++)
-        {
-            int a;
-            string b;
-            stuin >> a >> b;
-            stu[i].set(a,b);
-            
-        }
-        stuin.close();
-    }
-    
-    if(judgein.is_open()) //文件读取裁判姓名 给四个学生打的分数
-    {
-        cout<<"file OK"<<endl;
-        for(int i=0; i<7; i++) //每个裁判
-        {
-            string a;
-            judgein >> a;
-            int score[4];
-            for(int j=0; j<4; j++)
-            {
-                int s;
-                judgein >> s;
-                score[j] = s;
-            }
-            jud[i].set(a,score);
-        }
-        judgein.close();
-    }
-    if (ljlout.is_open())
-    {
-        cout<<"file OK"<<endl;
-        average(jud,avg1);
-        sort(avg1,num);
-        for(int i=0; i<4; i++ ){
-            //ljlout << nam[i] <<" "<< avg1[i] <<endl;
-            ljlout << stu[num[i]].get() <<" "<< avg1[i] <<endl;
-            for(int j=0; j<7; j++){
-                ljlout << jud[j].get1() <<" "<< jud[j].get2(num[i])<<" ";
-            }
-            ljlout<<endl;
-        }
-        
-        ljlout.close();
-    }
-    return 0;
-}
 void average(judge *jud,double *avg1){
     int scor[4][7];
     int sum[4]={0,0,0,0};
     for(int i=0; i<4; i++ )
-        for(int j=0; j<7; j++ ){
+        for(int j=0; j<7; j++ )
             scor[i][j] = (*(jud+j)).score[i];
-        }
     int max,min;
     int sign_max=0,sign_min=0;
     for(int i=0; i<4; i++ ){
@@ -143,4 +79,59 @@ void sort(double *p,int *z){
                 *(z+j+1) = v;
             }
         }
+}
+
+
+int main() {
+    student stu[4]; //对象数组 学生
+    judge jud[7]; //对象数组 裁判
+    double avg1[4]; //平均成绩
+    string nam[4]; //学生名
+    int num[4]={0,1,2,3};
+    ifstream stuin("/Users/s20181106275/Desktop/project0626/20190626/190626in01.txt");
+    ifstream judgein("/Users/s20181106275/Desktop/project0626/20190626/190626in02.txt");
+    ofstream ljlout("/Users/s20181106275/Desktop/project0626/20190626/190626out.txt");
+    
+    if(stuin.is_open()){//文件读取学生学号姓名
+        cout<<"file OK"<<endl;
+        for(int i=0; i<4; i++){
+            int a;
+            string b;
+            stuin >> a >> b;
+            stu[i].set(a,b);
+            
+        }
+        stuin.close();
+    }
+    
+    if(judgein.is_open()){    //文件读取裁判姓名 给四个学生打的分数
+        cout<<"file OK"<<endl;
+        for(int i=0; i<7; i++) {  //每个裁判
+            string a;
+            judgein >> a;
+            int score[4];
+            for(int j=0; j<4; j++){
+                int s;
+                judgein >> s;
+                score[j] = s;
+            }
+            jud[i].set(a,score);
+        }
+        judgein.close();
+    }
+    
+    if (ljlout.is_open()){
+        cout<<"file OK"<<endl;
+        average(jud,avg1);
+        sort(avg1,num);
+        for(int i=0; i<4; i++ ){
+            ljlout << stu[num[i]].get() <<" "<< avg1[i] <<endl;
+            for(int j=0; j<7; j++){
+                ljlout << jud[j].get1() <<" "<< jud[j].get2(num[i])<<" ";
+            }
+            ljlout<<endl;
+        }
+        ljlout.close();
+    }
+    return 0;
 }
