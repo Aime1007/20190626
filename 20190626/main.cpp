@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 using namespace std;
 
 class student{
@@ -9,7 +10,10 @@ public:
         num = a;
         name = b;
     }
-    string get(){
+    int get1(){
+        return num;
+    }
+    string get2(){
         return name;
     }
 private:
@@ -31,7 +35,6 @@ public:
     int get2(int z){
         return score[z];
     }
-    friend void average(judge *jud,double *avg1);
 private:
     string name;
     int score[4];
@@ -42,7 +45,7 @@ void average(judge *jud,double *avg1){
     int sum[4]={0,0,0,0};
     for(int i=0; i<4; i++ )
         for(int j=0; j<7; j++ )
-            scor[i][j] = (*(jud+j)).score[i];
+            scor[i][j] = (*(jud+j)).get2(i);
     int max,min;
     int sign_max=0,sign_min=0;
     for(int i=0; i<4; i++ ){
@@ -86,7 +89,6 @@ int main() {
     student stu[4]; //对象数组 学生
     judge jud[7]; //对象数组 裁判
     double avg1[4]; //平均成绩
-    string nam[4]; //学生名
     int num[4]={0,1,2,3};
     ifstream stuin("/Users/s20181106275/Desktop/project0626/20190626/190626in01.txt");
     ifstream judgein("/Users/s20181106275/Desktop/project0626/20190626/190626in02.txt");
@@ -124,10 +126,37 @@ int main() {
         cout<<"file OK"<<endl;
         average(jud,avg1);
         sort(avg1,num);
-        for(int i=0; i<4; i++ ){
-            ljlout << stu[num[i]].get() <<" "<< avg1[i] <<endl;
+        /*for(int i=0; i<4; i++ ){
+            ljlout << stu[num[i]].get1()<<" "<<stu[num[i]].get2() <<" "<< avg1[i] <<endl;
             for(int j=0; j<7; j++){
                 ljlout << jud[j].get1() <<" "<< jud[j].get2(num[i])<<" ";
+            }
+            ljlout<<endl;
+        }*/
+        ljlout << std::left << setw(12) <<"排名";
+        for(int i=0; i<4; i++ ){
+            ljlout << std::left << setw(8) << i+1;
+        }
+        ljlout<<endl;
+        ljlout << std::left << setw(12) <<"学号";
+        for(int i=0; i<4; i++ ){
+            ljlout << std::left << setw(8) << stu[num[i]].get1();
+        }
+        ljlout<<endl;
+        ljlout << std::left << setw(12) <<"姓名";
+        for(int i=0; i<4; i++ ){
+            ljlout << std::left << setw(8) << stu[num[i]].get2();
+        }
+        ljlout<<endl;
+        ljlout << std::left << setw(12) <<"得分";
+        for(int i=0; i<4; i++ ){
+            ljlout << std::left << setw(8) << avg1[i];
+        }
+        ljlout<<endl;
+        for(int i=0; i<7; i++ ){
+            ljlout << std::left << setw(9) <<jud[i].get1();
+            for(int j=0; j<4; j++ ){
+                ljlout << std::left << setw(8) << jud[i].get2(num[j]);
             }
             ljlout<<endl;
         }
