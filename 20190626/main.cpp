@@ -73,7 +73,7 @@ void average(judge *jud,double *avg1){
 void sort(double *p,int *z){
     for(int i=0; i<3; i++)
         for(int j=0; j<3-i; j++ ){
-            if( *(p+j)>*(p+j+1) ){
+            if( *(p+j)<=*(p+j+1) ){
                 double t = *(p+j);
                 *(p+j) = *(p+j+1);
                 *(p+j+1) = t;
