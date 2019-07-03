@@ -15,7 +15,8 @@ public:
         return num;
     }
     string get2(){
-        return name;    }
+        return name;
+    }
 private:
     string name;
     int num;
@@ -41,14 +42,14 @@ private:
 };
 
 void average(judge *jud,double *avg1){
-    int scor[20][7];
-    int sum[20]={0};
-    for(int i=0; i<20; i++ )
+    int scor[N][7];
+    int sum[N]={0};
+    for(int i=0; i<N; i++ )
         for(int j=0; j<7; j++ )
             scor[i][j] = (*(jud+j)).get2(i);
     int max,min;
     int sign_max=0,sign_min=0;
-    for(int i=0; i<20; i++ ){
+    for(int i=0; i<N; i++ ){
         max=0;
         min=1000;
         for(int j=0; j<7; j++ ){
@@ -63,7 +64,7 @@ void average(judge *jud,double *avg1){
         }
         scor[i][sign_max]=0; scor[i][sign_min] =0;
     }
-    for(int i=0; i<20; i++ ){
+    for(int i=0; i<N; i++ ){
         for(int j=0; j<7; j++ ){
             sum[i] += scor[i][j];
         }
@@ -71,8 +72,8 @@ void average(judge *jud,double *avg1){
     }
 }
 void sort(double *p,int *q){
-    for(int i=0; i<19; i++)
-        for(int j=0; j<19-i; j++ ){
+    for(int i=0; i<N-1; i++)
+        for(int j=0; j<N-1-i; j++ ){
             if( *(p+j)<=*(p+j+1) ){
                 double t = *(p+j);
                 *(p+j) = *(p+j+1);
@@ -86,9 +87,9 @@ void sort(double *p,int *q){
 
 
 int main() {
-    student stu[N]; //对象数组 学生
-    judge jud[7]; //对象数组 裁判
-    double avg1[N]; //平均成绩
+    student stu[N];
+    judge jud[7];
+    double avg1[N];
     int num[N];
     for(int i=0; i<N; i++ ){
         num[i] = i;
