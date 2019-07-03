@@ -27,8 +27,8 @@ public:
     judge(){}
     void set(string a,int *p){
         name = a;
-        for(int i=0; i<N; i++)
-            score[i]=*(p+i);
+        for(int i=0; i<N; i++ )
+            score[i] = *(p+i);
     }
     string get1(){
         return name;
@@ -72,9 +72,9 @@ void average(judge *jud,double *avg1){
     }
 }
 void sort(double *p,int *q){
-    for(int i=0; i<N-1; i++)
+    for(int i=0; i<N-1; i++ )
         for(int j=0; j<N-1-i; j++ ){
-            if( *(p+j)<=*(p+j+1) ){
+            if( *(p+j) <= *(p+j+1) ){
                 double t = *(p+j);
                 *(p+j) = *(p+j+1);
                 *(p+j+1) = t;
@@ -98,7 +98,7 @@ int main() {
     ifstream judgein("/Users/s20181106275/Desktop/project0626/20190626/190626in02.txt");
     ofstream ljlout("/Users/s20181106275/Desktop/project0626/20190626/190626out.txt");
     
-    if(stuin.is_open()){//文件读取学生学号姓名
+    if(stuin.is_open()){
         cout<<"file OK"<<endl;
         for(int i=0; i<N; i++){
             int a;
@@ -110,13 +110,13 @@ int main() {
         stuin.close();
     }
     
-    if(judgein.is_open()){    //文件读取裁判姓名 给四个学生打的分数
+    if(judgein.is_open()){
         cout<<"file OK"<<endl;
-        for(int i=0; i<7; i++) {  //每个裁判
+        for(int i=0; i<7; i++ ){
             string a;
             judgein >> a;
             int score[N];
-            for(int j=0; j<N; j++){
+            for(int j=0; j<N; j++ ){
                 int s;
                 judgein >> s;
                 score[j] = s;
