@@ -50,8 +50,8 @@ void average(judge *jud,double *avg1){
     int max,min;
     int sign_max=0,sign_min=0;
     for(int i=0; i<N; i++ ){
-        max=0;
-        min=1000;
+        max=scor[i][0];
+        min=scor[i][0];
         for(int j=0; j<7; j++ ){
             if( scor[i][j]>max ){
                 max = scor[i][j];
