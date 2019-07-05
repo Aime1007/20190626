@@ -118,9 +118,7 @@ int main() {
             judgein >> a;
             int score[N];
             for(int j=0; j<N; j++ ){
-                int s;
-                judgein >> s;
-                score[j] = s;
+                judgein >> score[j];
             }
             jud[i].set(a,score);
         }
