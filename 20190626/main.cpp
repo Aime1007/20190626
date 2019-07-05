@@ -43,7 +43,7 @@ private:
 
 void average(judge *jud,double *avg1){
     int scor[N][7];
-    int sum[N]={0};
+    int sum = 0;
     for(int i=0; i<N; i++ )
         for(int j=0; j<7; j++ )
             scor[i][j] = (*(jud+j)).get2(i);
@@ -65,10 +65,11 @@ void average(judge *jud,double *avg1){
         scor[i][sign_max]=0; scor[i][sign_min] =0;
     }
     for(int i=0; i<N; i++ ){
+        sum = 0;
         for(int j=0; j<7; j++ ){
-            sum[i] += scor[i][j];
+            sum += scor[i][j];
         }
-        *(avg1+i) = 1.0*sum[i]/5;
+        *(avg1+i) = 1.0*sum/5;
     }
 }
 void sort(double *p,int *q){
