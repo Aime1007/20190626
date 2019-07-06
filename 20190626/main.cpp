@@ -2,11 +2,13 @@
 #include <fstream>
 #include <iomanip>
 #define N 20
+#define Width1 12
+#define Width2 8
 using namespace std;
 
-class student{
+class Student{
 public:
-    student(){}
+    Student(){}
     void set(int a,string b){
         num = a;
         name = b;
@@ -22,9 +24,9 @@ private:
     int num;
 };
 
-class judge{
+class Judge{
 public:
-    judge(){}
+    Judge(){}
     void set(string a,int *p){
         name = a;
         for(int i=0; i<N; i++ )
@@ -41,17 +43,17 @@ private:
     int score[N];
 };
 
-void average(judge *jud,double *avg1){
+void average(Judge *jud,double *avg1){
     int scor[N][7];
-    int sum[N]={0};
+    int sum = 0;
     for(int i=0; i<N; i++ )
         for(int j=0; j<7; j++ )
             scor[i][j] = (*(jud+j)).get2(i);
     int max,min;
-    int sign_max=0,sign_min=0;
+    int sign_max = 0,sign_min = 0;
     for(int i=0; i<N; i++ ){
-        max=scor[i][0];
-        min=scor[i][0];
+        max = scor[i][0];
+        min = scor[i][0];
         for(int j=0; j<7; j++ ){
             if( scor[i][j]>max ){
                 max = scor[i][j];
@@ -62,13 +64,15 @@ void average(judge *jud,double *avg1){
                 sign_min = j;
             }
         }
-        scor[i][sign_max]=0; scor[i][sign_min] =0;
+        scor[i][sign_max] = 0;
+        scor[i][sign_min] = 0;
     }
     for(int i=0; i<N; i++ ){
+        sum = 0;
         for(int j=0; j<7; j++ ){
-            sum[i] += scor[i][j];
+            sum += scor[i][j];
         }
-        *(avg1+i) = 1.0*sum[i]/5;
+        *(avg1+i) = 1.0*sum/5;
     }
 }
 void sort(double *p,int *q){
@@ -87,8 +91,8 @@ void sort(double *p,int *q){
 
 
 int main() {
-    student stu[N];
-    judge jud[7];
+    Student student[N];
+    Judge judge[7];
     double avg1[N];
     int num[N];
     for(int i=0; i<N; i++ ){
@@ -104,7 +108,7 @@ int main() {
             int a;
             string b;
             stuin >> a >> b;
-            stu[i].set(a,b);
+            student[i].set(a,b);
             
         }
         stuin.close();
@@ -117,43 +121,41 @@ int main() {
             judgein >> a;
             int score[N];
             for(int j=0; j<N; j++ ){
-                int s;
-                judgein >> s;
-                score[j] = s;
+                judgein >> score[j];
             }
-            jud[i].set(a,score);
+            judge[i].set(a,score);
         }
         judgein.close();
     }
     
     if (ljlout.is_open()){
         cout<<"file OK"<<endl;
-        average(jud,avg1);
+        average(judge,avg1);
         sort(avg1,num);
-        ljlout << std::left << setw(12) <<"排名";
+        ljlout << std::left << setw(Width1) <<"排名";
         for(int i=0; i<N; i++ ){
-            ljlout << std::left << setw(8) << i+1;
+            ljlout << std::left << setw(Width2) << i+1;
         }
         ljlout<<endl;
-        ljlout << std::left << setw(12) <<"学号";
+        ljlout << std::left << setw(Width1) <<"学号";
         for(int i=0; i<N; i++ ){
-            ljlout << std::left << setw(8) << stu[num[i]].get1();
+            ljlout << std::left << setw(Width2) << student[num[i]].get1();
         }
         ljlout<<endl;
-        ljlout << std::left << setw(12) <<"姓名";
+        ljlout << std::left << setw(Width1) <<"姓名";
         for(int i=0; i<N; i++ ){
-            ljlout << std::left << setw(8) << stu[num[i]].get2();
+            ljlout << std::left << setw(Width2) << student[num[i]].get2();
         }
         ljlout<<endl;
-        ljlout << std::left << setw(12) <<"得分";
+        ljlout << std::left << setw(Width1) <<"得分";
         for(int i=0; i<N; i++ ){
-            ljlout << std::left << setw(8) << avg1[i];
+            ljlout << std::left << setw(Width2) << avg1[i];
         }
         ljlout<<endl;
         for(int i=0; i<7; i++ ){
-            ljlout << std::left << setw(9) <<jud[i].get1();
+            ljlout << std::left << setw(Width2+1) <<judge[i].get1();
             for(int j=0; j<N; j++ ){
-                ljlout << std::left << setw(8) << jud[i].get2(num[j]);
+                ljlout << std::left << setw(Width2) << judge[i].get2(num[j]);
             }
             ljlout<<endl;
         }
